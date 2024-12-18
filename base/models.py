@@ -1,0 +1,74 @@
+from django.db import models
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.utils.translation import gettext_lazy as _
+
+# Create your models here.
+
+
+class MyManager(BaseUserManager):
+    def create_user(self, email, username, password=None, **extra_fields):
+        if email is None:
+            raise ValueError(_("Users must have an email address"))
+        if username is None:
+            raise ValueError(_("Users must have a username"))
+
+        email = self.normalize_email(email=email).lower()
+
+        user = self.model(email=email, username=username, **extra_fields)
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, username, password=None, **extra_fields):
+        extra_fields.setdefault("is_admin", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_staff", True)
+
+        user = self.create_user(
+            email=email, username=username, password=password, **extra_fields
+        )
+
+        return user
+
+
+class Account(AbstractBaseUser):
+    email = models.EmailField(_("Email"), max_length=80, unique=True)
+    username = models.CharField(_("Username"), max_length=50, unique=True)
+
+    last_login = models.DateTimeField(_("Last Login"), auto_now=True, blank=True)
+    date_joined = models.DateField(_("Date Joined"), auto_now_add=True, blank=True)
+
+    is_active = models.BooleanField(_("Active"), default=True)
+    is_superuser = models.BooleanField(_("Super User"), default=False)
+    is_staff = models.BooleanField(_("Staff"), default=False)
+    is_admin = models.BooleanField(_("Admin"), default=False)
+
+    objects = MyManager()
+
+    REQUIRED_FIELDS = ["username"]
+    USERNAME_FIELD = "email"
+
+    def __str__(self):
+        return self.username
+
+
+class Tag(models.Model):
+    tag = models.CharField(_("Tag"), max_length=50)
+    created_at = models.DateField(_("Created"), auto_now_add=True)
+
+    def __str__(self):
+        return self.tag
+
+
+class BlogPost(models.Model):
+    user = models.ForeignKey(Account, verbose_name=_("User"), on_delete=models.CASCADE)
+    title = models.CharField(_("Post Title"), max_length=255)
+    description = models.TextField(_("Description"))
+    content = models.TextField(_("Post Content"))
+    tags = models.ManyToManyField(Tag, verbose_name=_("Tags"), related_name="post")
+    created_at = models.DateTimeField(_("Created"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated"), auto_now=True)
+
+    def __str__(self):
+        return self.title
