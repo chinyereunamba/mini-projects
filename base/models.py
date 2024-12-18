@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -32,7 +32,7 @@ class MyManager(BaseUserManager):
         return user
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("Email"), max_length=80, unique=True)
     username = models.CharField(_("Username"), max_length=50, unique=True)
 
@@ -52,6 +52,17 @@ class Account(AbstractBaseUser):
     def __str__(self):
         return self.username
 
+    def has_perm(self, perm, obj=None):
+        """Check if the user has a specific permission."""
+        return True
+
+    def has_module_perms(self, app_label):
+        """
+        Check if the user has permissions to view the app.
+        This is required for the Django admin interface.
+        """
+        return True
+
 
 class Tag(models.Model):
     tag = models.CharField(_("Tag"), max_length=50)
@@ -61,12 +72,26 @@ class Tag(models.Model):
         return self.tag
 
 
+class Category(models.Model):
+    category = models.CharField(_("Category"), max_length=50)
+    created_at = models.DateField(_("Created"), auto_now_add=True)
+
+    def __str__(self):
+        return self.category
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+
 class BlogPost(models.Model):
     user = models.ForeignKey(Account, verbose_name=_("User"), on_delete=models.CASCADE)
     title = models.CharField(_("Post Title"), max_length=255)
     description = models.TextField(_("Description"))
     content = models.TextField(_("Post Content"))
     tags = models.ManyToManyField(Tag, verbose_name=_("Tags"), related_name="post")
+    category = models.ForeignKey(
+        Category, verbose_name=_("Category"), on_delete=models.CASCADE, blank=True
+    )
     created_at = models.DateTimeField(_("Created"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated"), auto_now=True)
 
