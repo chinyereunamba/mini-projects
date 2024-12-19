@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-from .forms import NewUserForm, PostForm
-from .models import BlogPost
+from .forms import NewUserForm, PostForm, ProfileForm
+from .models import BlogPost, Account
 
 # Create your views here.
 
@@ -45,12 +45,35 @@ def logout_view(request):
     return redirect("home")
 
 
-def profile(request):
-    return render(request, "base/profile.html")
+def profile(request, username):
+    user = get_object_or_404(Account, username=username)
+    post = BlogPost.objects.filter(user=user)
+    context = {"posts": post, "user": user}
+    return render(request, "base/profile.html", context)
+
+
+def edit_profile(request, username):
+    user = get_object_or_404(Account, username=username)
+    form = ProfileForm(instance=user)
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("profile", username=username)
+
+    context = {"form": form}
+    return render(request, "base/form.html", context)
 
 
 def about(request):
     return render(request, "base/about.html")
+
+
+def view_post(request, pk):
+    post = BlogPost.objects.get(id=pk)
+    context = {"post": post}
+    return render(request, "base/post.html", context)
 
 
 def add_post(request):

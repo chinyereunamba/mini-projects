@@ -27,7 +27,7 @@ class AccountAdmin(UserAdmin):
     ordering = ("email",) 
 
     fieldsets = (
-        ("Basic Info", {"fields": ("email", "username")}),
+        ("Basic Info", {"fields": ("email", "username", 'first_name', 'last_name')}),
         (
             "Groups and Permissions",
             {"fields": ("groups", "user_permissions")},

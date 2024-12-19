@@ -1,5 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import (
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -35,6 +39,10 @@ class MyManager(BaseUserManager):
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("Email"), max_length=80, unique=True)
     username = models.CharField(_("Username"), max_length=50, unique=True)
+
+    bio = models.TextField(_("Bio"), blank=True)
+    first_name = models.CharField(_("First name"), max_length=50, blank=True)
+    last_name = models.CharField(_("Last name"), max_length=50, blank=True)
 
     last_login = models.DateTimeField(_("Last Login"), auto_now=True, blank=True)
     date_joined = models.DateField(_("Date Joined"), auto_now_add=True, blank=True)
@@ -90,7 +98,11 @@ class BlogPost(models.Model):
     content = models.TextField(_("Post Content"))
     tags = models.ManyToManyField(Tag, verbose_name=_("Tags"), related_name="post")
     category = models.ForeignKey(
-        Category, verbose_name=_("Category"), on_delete=models.CASCADE, blank=True, null=True
+        Category,
+        verbose_name=_("Category"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     created_at = models.DateTimeField(_("Created"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated"), auto_now=True)
