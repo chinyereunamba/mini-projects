@@ -1,0 +1,65 @@
+{% extends "base/base.html" %} {% block body %}
+
+<!-- Hero Section -->
+<section class="bg-blue-600 text-white py-12 min-h-96">
+  <div class="container mx-auto text-center">
+    <h1 class="text-4xl font-bold">Welcome to My Blog</h1>
+    <p class="mt-4 text-lg">
+      Discover insightful articles, stories, and ideas.
+    </p>
+  </div>
+</section>
+
+<!-- Blog Posts Grid -->
+<main class="container mx-auto my-8">
+  <h2 class="text-2xl font-bold mb-6">Latest Posts</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Blog Post Card -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <img
+        src="https://via.placeholder.com/400x200"
+        alt="Blog Image"
+        class="w-full h-48 object-cover"
+      />
+      <div class="p-4">
+        <h3 class="text-xl font-bold mb-2">Blog Post Title</h3>
+        <p class="text-gray-600 text-sm mb-4">
+          A brief description of the blog post. Keep it short and intriguing.
+        </p>
+        <a href="#" class="text-blue-600 hover:underline">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Repeat the blog post card for additional posts -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <img
+        src="https://via.placeholder.com/400x200"
+        alt="Blog Image"
+        class="w-full h-48 object-cover"
+      />
+      <div class="p-4">
+        <h3 class="text-xl font-bold mb-2">Another Blog Title</h3>
+        <p class="text-gray-600 text-sm mb-4">
+          A brief description of the blog post. Keep it short and intriguing.
+        </p>
+        <a href="#" class="text-blue-600 hover:underline">Read More →</a>
+      </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <img
+        src="https://via.placeholder.com/400x200"
+        alt="Blog Image"
+        class="w-full h-48 object-cover"
+      />
+      <div class="p-4">
+        <h3 class="text-xl font-bold mb-2">Interesting Blog Post</h3>
+        <p class="text-gray-600 text-sm mb-4">
+          A brief description of the blog post. Keep it short and intriguing.
+        </p>
+        <a href="#" class="text-blue-600 hover:underline">Read More →</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock body %}

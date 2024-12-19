@@ -12,9 +12,15 @@ class CaseInsensitiveModelBackend(ModelBackend):
         if username is None or password is None:
             return
         try:
-            user = UserModel._default_manager.get(username__iexact=username)
+            case_insensitive_username_field = "{}__iexact".format(
+                UserModel.USERNAME_FIELD
+            )
+            user = UserModel._default_manager.get(
+                **{case_insensitive_username_field: username}
+            )
+
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
-            return
+
         if user.check_password(password) and self.user_can_authenticate(user):
             return user

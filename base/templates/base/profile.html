@@ -1,0 +1,67 @@
+{% extends "base/base.html" %} {% block body %}
+
+<main class="container mx-auto mt-3 px-6 py-8 bg-white flex justify-between">
+  <div class="rounded-lg shadow-md p-8 max-w-2xl">
+    <div class="flex items-center mb-6">
+      <img
+        src="https://via.placeholder.com/150"
+        alt="User Avatar"
+        class="w-20 h-20 rounded-full mr-4"
+      />
+      <div>
+        <h1 class="text-2xl font-semibold text-gray-800">John Doe</h1>
+        <p class="text-gray-600">john.doe@example.com</p>
+      </div>
+    </div>
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">Bio</h2>
+      <p class="text-gray-600">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+    </div>
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">My Posts</h2>
+      <ul class="space-y-4">
+        <li>
+          <a
+            href="blog.html"
+            class="block bg-gray-50 p-4 rounded-lg hover:bg-gray-100"
+          >
+            <h3 class="text-lg font-semibold text-gray-800">
+              Sample Blog Post 1
+            </h3>
+            <p class="text-gray-600">Published on May 1, 2023</p>
+          </a>
+        </li>
+        <li>
+          <a
+            href="blog.html"
+            class="block bg-gray-50 p-4 rounded-lg hover:bg-gray-100"
+          >
+            <h3 class="text-lg font-semibold text-gray-800">
+              Sample Blog Post 2
+            </h3>
+            <p class="text-gray-600">Published on April 15, 2023</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <a
+        href="#"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        >Edit Profile</a
+      >
+    </div>
+  </div>
+  <div>
+    <button
+    onclick="window.location.href='{% url "add-post" %}'"
+      class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+    >
+      Create post
+    </button>
+  </div>
+</main>
+{% endblock body %}
