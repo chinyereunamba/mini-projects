@@ -2,7 +2,9 @@
 module.exports = {
   content: ["../**/templates/**/*.html"],
   theme: {
-    extend: {},
+    extend: {
+      appearance: ["responsive"],
+    },
   },
   plugins: [],
 };

@@ -10,7 +10,9 @@ class NewUserForm(UserCreationForm):
         fields = ["email", "username", "password1", "password2"]
 
 class PostForm(forms.ModelForm):
-    
     class Meta:
         model = BlogPost
         fields = ["title", "description", "category", "content", "tags"]
+        widgets = {
+            "tags": forms.CheckboxSelectMultiple,  # Use checkboxes for the tags field
+        }

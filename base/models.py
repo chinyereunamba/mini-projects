@@ -90,7 +90,7 @@ class BlogPost(models.Model):
     content = models.TextField(_("Post Content"))
     tags = models.ManyToManyField(Tag, verbose_name=_("Tags"), related_name="post")
     category = models.ForeignKey(
-        Category, verbose_name=_("Category"), on_delete=models.CASCADE, blank=True
+        Category, verbose_name=_("Category"), on_delete=models.CASCADE, blank=True, null=True
     )
     created_at = models.DateTimeField(_("Created"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated"), auto_now=True)

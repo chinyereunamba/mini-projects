@@ -892,6 +892,36 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2.5rem;
+}
+
+.select-wrapper svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.select-wrapper select {
+  padding-right: 2.5rem;
+}
+
+#div_id_category > div {
+  position: relative;
+}
+
+#div_id_category svg {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  height: 1.5rem;
+  width: 1.5rem;
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
@@ -942,4 +972,3 @@ video {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-

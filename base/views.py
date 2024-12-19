@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .forms import NewUserForm, PostForm
+from .models import BlogPost
 
 # Create your views here.
 
@@ -68,8 +69,22 @@ def add_post(request):
 
 
 def edit_post(request, pk):
-    pass
+    post = BlogPost.objects.get(id=pk)
+    form = PostForm(instance=post)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+    context = {"form": form}
+
+    return render(request, "base/form.html", context)
 
 
 def delete_post(request, pk):
-    pass
+    post = BlogPost.objects.get(id=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect("profile")
+    return render(request, "base/delete.html")
