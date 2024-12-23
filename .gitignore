@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 .DS_Store
 *.log
+=======
+.venv
+*.sqlite3
+__pycache__
+.vscode
+node_modules
+>>>>>>> blog/main

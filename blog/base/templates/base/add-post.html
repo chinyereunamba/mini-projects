@@ -1,0 +1,149 @@
+{% extends "base/base.html" %} {% load crispy_forms_tags %} {% block body %}
+<!-- Add Post Form -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8">Add New Post</h1>
+    <!-- Form -->
+    <form
+      method="post"
+      enctype="multipart/form-data"
+      class="space-y-6 bg-gray-800 p-6 rounded-lg shadow-lg"
+    >
+      {% csrf_token %}
+      <!-- Title -->
+      <div class="form-control">
+        <label for="{{ form.title.id_for_label }}" class="label">
+          <span class="label-text">{{form.title.label}}</span>
+        </label>
+        {{ form.title }} {% if form.title.errors %}
+        <p class="text-red-500 mt-1">{{ form.title.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Excerpt -->
+      <div class="form-control">
+        <label for="{{ form.description.id_for_label }}" class="label">
+          <span class="label-text">Excerpt</span>
+        </label>
+        {{ form.description }} {% if form.description.errors %}
+        <p class="text-red-500 mt-1">{{ form.description.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Content -->
+      <div class="form-control">
+        <label for="{{ form.content.id_for_label }}" class="label">
+          <span class="label-text">Content</span>
+        </label>
+        {{ form.content }} {% if form.content.errors %}
+        <p class="text-red-500 mt-1">{{ form.content.errors.0 }}</p>
+        {% endif %}
+      </div>
+      <!-- Category -->
+      <div class="form-control">
+        <label for="{{ form.category.id_for_label }}" class="label">
+          <span class="label-text">Category</span>
+        </label>
+        {{ form.category }} {% if form.category.errors %}
+        <p class="text-red-500 mt-1">{{ form.category.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Tags -->
+      <div class="form-control">
+        <label for="tags_id_for_label" class="label">
+          <span class="label-text">Tags</span>
+        </label>
+        <div
+          id="tag-container"
+          class="flex flex-wrap items-center gap-2 p-2 border border-gray-300 rounded-lg bg-whit"
+        ></div>
+        <input
+          id="tag-input"
+          type="text"
+          class="input input-bordered w-full mt-2"
+          placeholder="Enter tags and press comma"
+        />
+        <input type="hidden" name="tags" id="hidden-tags" />
+      </div>
+
+      <!-- Featured Image -->
+      <div class="form-control">
+        <label for="{{ form.featured_image.id_for_label }}" class="label">
+          <span class="label-text">Featured Image</span>
+        </label>
+        {{ form.featured_image }} {% if form.featured_image.errors %}
+        <p class="text-red-500 mt-1">{{ form.featured_image.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-end space-x-4">
+        <button type="submit" name="save_draft" class="btn btn-outline">Save Draft</button>
+        <button type="submit" name="publish" class="btn btn-primary">Publish Post</button>
+      </div>
+    </form>
+  </div>
+</main>
+<script>
+  // DOM Elements
+  const tagInput = document.getElementById("tag-input");
+  const tagContainer = document.getElementById("tag-container");
+  const hiddenTags = document.getElementById("hidden-tags");
+
+  // Tag list
+  let tags = [];
+
+  // Function to render tags
+  function renderTags() {
+    // Clear the container first
+    tagContainer.innerHTML = "";
+
+    // Render each tag
+    tags.forEach((tag, index) => {
+      const tagElement = document.createElement("span");
+      tagElement.classList.add(
+        "px-2",
+        "py-1",
+        "rounded-full",
+        "bg-blue-500",
+        "text-white",
+        "text-sm",
+        "flex",
+        "items-center",
+        "gap-1"
+      );
+      tagElement.innerHTML = `${tag} 
+        <button type="button" class="ml-1 text-white" onclick="removeTag(${index})">
+          &times;
+        </button>`;
+      tagContainer.appendChild(tagElement);
+    });
+
+    // Update hidden input
+    hiddenTags.value = tags.join(",");
+  }
+
+  // Add tag when Enter is pressed
+  tagInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && tagInput.value.trim() !== "") {
+      e.preventDefault(); // Prevent form submission
+
+      const newTag = tagInput.value.trim();
+      if (!tags.includes(newTag)) {
+        tags.push(newTag); // Add tag
+        renderTags(); // Re-render tags
+        tagInput.value = ""; // Clear input
+      } else {
+        alert("Tag already added!");
+      }
+    }
+  });
+
+  // Remove tag
+  function removeTag(index) {
+    tags.splice(index, 1);
+    renderTags();
+  }
+</script>
+{% endblock body %}

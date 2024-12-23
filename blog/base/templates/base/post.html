@@ -1,0 +1,98 @@
+{% extends "base/base.html" %} {% block body %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+  <a
+    href="{% url 'home' %}"
+    class="inline-flex items-center text-gray-400 hover:text-white"
+  >
+    <svg
+      class="w-5 h-5 mr-2"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 19l-7-7m0 0l7-7m-7 7h18"
+      ></path>
+    </svg>
+    Back to blog
+  </a>
+</div>
+
+<!-- Main Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="flex flex-col lg:flex-row gap-8">
+    <!-- Article Content -->
+    <article class="lg:w-3/4">
+      <img
+        src="https://placehold.co/800x400"
+        alt="Blog post hero"
+        class="w-full h-[400px] object-cover rounded-lg mb-8"
+      />
+      <div class="flex justify-between">
+        <div>
+          <h1 class="text-4xl font-bold mb-4">{{post.title}}</h1>
+          <div class="flex items-center text-gray-400 mb-8">
+            <span>{{post.created_at|date:"F d, Y"}}</span>
+            <span class="mx-2">•</span>
+            <span>11 min read</span>
+          </div>
+        </div>
+        <div x-data>
+          <button
+            class="btn btn-secondary"
+            onclick="location.href='{% url 'edit-post' post.id %}'"
+          >
+            Edit Article
+          </button>
+        </div>
+      </div>
+      <div class="prose prose-invert max-w-none">
+        <p class="text-gray-300 mb-4">{{post.description}}</p>
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Key Features</h2>
+        <p class="text-gray-300 mb-4">
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum.
+        </p>
+        <ul class="list-disc list-inside text-gray-300 mb-4">
+          <li>Feature one explanation</li>
+          <li>Feature two explanation</li>
+          <li>Feature three explanation</li>
+        </ul>
+      </div>
+      <div>
+        {% for tag in post.tags.all %}
+        <span class="badge badge-primary">{{tag.tag}}</span>
+        {% endfor %}
+      </div>
+    </article>
+
+    <!-- Table of Contents Sidebar -->
+    <aside class="lg:w-1/4">
+      <div class="sticky top-4 bg-gray-800 rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">Table of Contents</h2>
+        <nav class="space-y-2">
+          <a href="#" class="block text-gray-400 hover:text-white"
+            >Introduction</a
+          >
+          <a href="#" class="block text-gray-400 hover:text-white"
+            >Key Features</a
+          >
+          <a href="#" class="block text-gray-400 hover:text-white"
+            >Implementation</a
+          >
+          <a href="#" class="block text-gray-400 hover:text-white"
+            >Conclusion</a
+          >
+        </nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+{% endblock body %}
