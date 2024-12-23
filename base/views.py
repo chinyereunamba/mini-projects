@@ -1,15 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views.generic import CreateView
+from django.urls import reverse
 
 from .forms import NewUserForm, PostForm, ProfileForm
-from .models import BlogPost, Account
+from .models import Account, BlogPost, Tag
 
 # Create your views here.
 
 
 def home(request):
-    return render(request, "base/index.html")
+    latest_post = BlogPost.objects.all().order_by("-created_at")[:3]
+    posts = BlogPost.objects.all().order_by('title')
+    tags = Tag.objects.all()
+    context = {"latest_post": latest_post, "posts": posts, 'tags':tags}
+    return render(request, "base/index.html", context)
 
 
 def login_view(request):
@@ -18,26 +24,22 @@ def login_view(request):
         password = request.POST["password"]
 
         user = authenticate(request, email=email, password=password)
-        print(user)
 
         if user is not None:
             login(request, user=user)
             messages.success(request, "Logged in successfully")
-            return redirect("profile")
+            return redirect("profile", request.user.username)
         else:
             messages.error(request, "Username or password incorrect")
     return render(request, "base/login.html")
 
 
-def register(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("login")
-    else:
-        form = NewUserForm()
-    return render(request, "base/register.html", {"form": form})
+class SignupView(CreateView):
+    template_name = "base/register.html"
+    form_class = NewUserForm
+
+    def get_success_url(self):
+        return reverse("login")
 
 
 def logout_view(request):
@@ -82,10 +84,10 @@ def add_post(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.user = request.user
+            post = form.save(commit=False)
+            post.user = request.user
             form.save()
-            return redirect("profile")
+            return redirect("profile", username=request.user.username)
     context = {"form": form}
 
     return render(request, "base/form.html", context)
@@ -99,7 +101,7 @@ def edit_post(request, pk):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect("profile")
+            return redirect("profile", request.user.username)
     context = {"form": form}
 
     return render(request, "base/form.html", context)

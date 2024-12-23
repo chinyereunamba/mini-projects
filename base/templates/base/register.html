@@ -1,15 +1,19 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "base/base.html" %} {% load crispy_forms_tags %} {% block body %}
 <main class="container mx-auto px-6 py-8">
-  <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Sign Up</h1>
-    <form>
-      {% csrf_token %} {{form|crispy}}
+  <div class="max-w-lg mx-auto rounded-lg p-8">
+    <h1 class="text-2xl font-semibold text-white mb-6">Sign Up</h1>
+    <form method="post" class="text-white">
+      {% csrf_token %}
+      <div class="grid grid-cols-2 gap-2">
+        <div class="col-span-1">{{form.email | as_crispy_field}}</div>
+        <div class="col-span-1">{{form.username | as_crispy_field}}</div>
+      </div>
       <div class="flex items-center justify-between mb-6">
         <button
           type="submit"
           class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
         >
-          Sign Up
+          Register as a Writer
         </button>
       </div>
     </form>
@@ -21,4 +25,149 @@
     </p>
   </div>
 </main>
-{% endblock content %}
+
+{% comment %}
+<main class="container mx-auto px-4 py-12">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-center">Become a Writer</h1>
+
+    <div class="rounded-lg p-8">
+      <form class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              for="first-name"
+              class="block text-sm font-medium text-gray-300"
+              >First name</label
+            >
+            <input
+              type="text"
+              id="first-name"
+              name="first-name"
+              class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label
+              for="last-name"
+              class="block text-sm font-medium text-gray-300"
+              >Last name</label
+            >
+            <input
+              type="text"
+              id="last-name"
+              name="last-name"
+              class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-300"
+            >Email address</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-300"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div>
+          <label for="bio" class="block text-sm font-medium text-gray-300"
+            >About yourself</label
+          >
+          <textarea
+            id="bio"
+            name="bio"
+            rows="4"
+            class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          ></textarea>
+          <p class="mt-2 text-sm text-gray-400">
+            Brief description for your profile.
+          </p>
+        </div>
+
+        <div>
+          <label for="expertise" class="block text-sm font-medium text-gray-300"
+            >Areas of expertise</label
+          >
+          <div class="mt-2 space-y-2">
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="web-dev"
+                name="expertise"
+                class="h-4 w-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
+              />
+              <label for="web-dev" class="ml-2 text-sm text-gray-300"
+                >Web Development</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="mobile-dev"
+                name="expertise"
+                class="h-4 w-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
+              />
+              <label for="mobile-dev" class="ml-2 text-sm text-gray-300"
+                >Mobile Development</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="devops"
+                name="expertise"
+                class="h-4 w-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
+              />
+              <label for="devops" class="ml-2 text-sm text-gray-300"
+                >DevOps</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="ai-ml"
+                name="expertise"
+                class="h-4 w-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
+              />
+              <label for="ai-ml" class="ml-2 text-sm text-gray-300"
+                >AI/ML</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Register as Writer
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <p class="mt-4 text-center text-sm text-gray-400">
+      Already have an account?
+      <a href="login.html" class="text-blue-500 hover:text-blue-400">Sign in</a>
+    </p>
+  </div>
+</main>
+{% endcomment %} {% endblock body %}

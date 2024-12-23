@@ -8,7 +8,15 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = Account
-        fields = ["email", "username", "password1", "password2"]
+        fields = [
+            "first_name",
+            "last_name",
+            "email",
+            "username",
+            "bio",
+            "password1",
+            "password2",
+        ]
 
 
 class ProfileForm(forms.ModelForm):

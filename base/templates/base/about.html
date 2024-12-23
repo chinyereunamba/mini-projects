@@ -1,30 +1,114 @@
 {% extends "base/base.html" %} {% block body %}
-<main class="container mx-auto px-6 py-8">
-  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
-    <h1 class="text-3xl font-semibold text-gray-800 mb-6">
-      About MultiUser Blog
-    </h1>
-    <p class="text-gray-600 mb-4">
-      MultiUser Blog is a platform where multiple users can share their stories,
-      ideas, and experiences with the world. Our mission is to provide a space
-      for diverse voices and perspectives to be heard.
-    </p>
-    <p class="text-gray-600 mb-4">
-      Founded in 2023, we've grown into a community of passionate writers and
-      readers who believe in the power of storytelling to connect people and
-      inspire change.
-    </p>
-    <h2 class="text-2xl font-semibold text-gray-800 mt-6 mb-4">Our Team</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <h3 class="text-xl font-semibold mb-2">John Doe</h3>
-        <p class="text-gray-600">Founder & CEO</p>
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">About Technical Blog</h1>
+
+    <div class="mb-8">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Our Mission</h2>
+        <p class="mb-4">
+          At Technical Blog, we're passionate about sharing knowledge and
+          fostering a community of tech enthusiasts. Our mission is to provide
+          high-quality, in-depth articles on the latest technologies, best
+          practices, and innovative solutions in the world of software
+          development and IT.
+        </p>
+        <p>
+          Whether you're a seasoned professional or just starting your journey
+          in tech, we aim to be your go-to resource for learning, inspiration,
+          and staying up-to-date with the rapidly evolving tech landscape.
+        </p>
       </div>
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <h3 class="text-xl font-semibold mb-2">Jane Smith</h3>
-        <p class="text-gray-600">Head of Content</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div>
+        <div class="card-body">
+          <h2 class="card-title text-xl mb-4">What We Cover</h2>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Web Development</li>
+            <li>Mobile App Development</li>
+            <li>Cloud Computing</li>
+            <li>DevOps and CI/CD</li>
+            <li>Artificial Intelligence and Machine Learning</li>
+            <li>Cybersecurity</li>
+            <li>Emerging Technologies</li>
+          </ul>
+        </div>
       </div>
+      <div>
+        <div class="card-body">
+          <h2 class="card-title text-xl mb-4">Our Values</h2>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Quality Content</li>
+            <li>Community Engagement</li>
+            <li>Continuous Learning</li>
+            <li>Diversity and Inclusion</li>
+            <li>Open Source Advocacy</li>
+            <li>Ethical Tech Practices</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Meet Our Team</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="text-center">
+            <div class="avatar mb-4">
+              <div
+                class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+              >
+                <img src="https://placehold.co/96x96" alt="Jane Doe" />
+              </div>
+            </div>
+            <h3 class="font-semibold">Jane Doe</h3>
+            <p class="text-sm">Founder & Editor-in-Chief</p>
+          </div>
+          <div class="text-center">
+            <div class="avatar mb-4">
+              <div
+                class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+              >
+                <img src="https://placehold.co/96x96" alt="John Smith" />
+              </div>
+            </div>
+            <h3 class="font-semibold">John Smith</h3>
+            <p class="text-sm">Lead Developer</p>
+          </div>
+          <div class="text-center">
+            <div class="avatar mb-4">
+              <div
+                class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+              >
+                <img src="https://placehold.co/96x96" alt="Emily Chen" />
+              </div>
+            </div>
+            <h3 class="font-semibold">Emily Chen</h3>
+            <p class="text-sm">Content Strategist</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <h2 class="text-2xl font-semibold mb-4">Join Our Community</h2>
+      <p class="mb-6">
+        Stay updated with our latest articles, tutorials, and tech news.
+        Subscribe to our newsletter!
+      </p>
+      <form class="flex flex-col md:flex-row justify-center items-center gap-4">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="input input-bordered w-full max-w-xs"
+        />
+        <button class="btn btn-primary">Subscribe</button>
+      </form>
     </div>
   </div>
 </main>
+
 {% endblock body %}

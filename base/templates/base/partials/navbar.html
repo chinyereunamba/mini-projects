@@ -1,28 +1,125 @@
-<header class="bg-white shadow">
-  <div class="container mx-auto flex justify-between items-center p-4">
-    <a href="#" class="text-2xl font-bold text-blue-600">MyBlog</a>
-    <nav>
-      <ul class="flex space-x-4">
-        <li><a href="{% url 'home' %}" class="hover:text-blue-600">Home</a></li>
-        <li><a href="{% url 'about' %}" class="hover:text-blue-600">About</a></li>
-        <li><a href="#" class="hover:text-blue-600">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="flex items-center gap-2">
-      {% if request.user.is_authenticated %}
+<nav class="border-b border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        {% comment %}
+        <img
+          class="h-8 w-8"
+          src="/placeholder.svg?height=32&width=32"
+          alt="Logo"
+        />
+        {% endcomment %} Logo
+      </div>
 
-      <a href="{% url 'profile' request.user.username %}" class="capitalize font-bold">{{request.user.username}}</a>
-      <a
-        href="{% url 'logout' %}"
-        class="px-4 py-2 bg-blue-600 rounded-lg text-white"
-        >Logout</a
-      >
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        <div class="flex items-center space-x-4">
+          <div class="relative group">
+            <input
+              type="text"
+              class="input input-bordered bg-gray-800 text-white px-4 py-2 rounded-md w-16 group-focus-within:w-64 transition-all duration-300 ease-in-out"
+              placeholder="Search..."
+            />
+          </div>
+          <button class="bg-gray-800 p-2 rounded-full">
+            <svg
+              class="h-6 w-6 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"
+              ></path>
+            </svg>
+          </button>
+        </div>
 
-      {% else %}
+        <a href="{% url 'home' %}" class="text-gray-300 hover:text-white"
+          >Blog</a
+        >
+        <a href="{% url 'about' %}" class="text-gray-300 hover:text-white"
+          >About</a
+        >
+        <a href="{% url 'register' %}" class="text-gray-300 hover:text-white"
+          >Become a writer</a
+        >
+        <a
+          href="{% url 'login' %}"
+          class="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700"
+          >Sign in</a
+        >
+      </div>
 
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'register' %}">Sign up</a>
-      {% endif %}
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center">
+        <button
+          type="button"
+          class="text-gray-400 hover:text-white focus:outline-none focus:text-white"
+          aria-label="Toggle menu"
+        >
+          <svg
+            class="h-6 w-6"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <div class="relative mb-4">
+          <input
+            type="text"
+            class="bg-gray-800 text-white px-4 py-2 rounded-md w-full"
+            placeholder="Search..."
+          />
+        </div>
+        <a
+          href="{% url 'home' %}"
+          class="block text-gray-300 hover:text-white py-2"
+          >Blog</a
+        >
+        <a
+          href="{% url 'about' %}"
+          class="block text-gray-300 hover:text-white py-2"
+          >About</a
+        >
+        <a
+          href="{% url 'register' %}"
+          class="block text-gray-300 hover:text-white py-2"
+          >Become a writer</a
+        >
+        <a
+          href="{% url 'login' %}"
+          class="block btn text-gray-300 hover:text-white py-2"
+          >Sign in</a
+        >
+      </div>
     </div>
   </div>
-</header>
+</nav>
+
+<script>
+  const mobileMenuButton = document.querySelector('[aria-label="Toggle menu"]');
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileMenuButton.addEventListener("click", () => {
+    const isHidden = mobileMenu.classList.contains("hidden");
+    mobileMenu.classList.toggle("hidden", !isHidden);
+  });
+</script>
