@@ -1,7 +1,7 @@
 {% extends "base/base.html" %} {% block body %}
 
 <!-- Writer Profile -->
-<main class="container mx-auto px-4 py-8">
+<main class="max-w-7xl mx-auto px-4 py-8">
   <div class="card text-base-content">
     <div class="md:flex">
       <!-- Profile Header -->
@@ -13,8 +13,8 @@
             <img src="https://placehold.co/128x128" alt="Jane Doe" />
           </div>
         </div>
-        <h1 class="text-2xl font-bold mb-2">
-          {{user.first_name}} {{user.last_name}}
+        <h1 class="text-2xl font-bold mb-1">
+          {{user.first_name}} {{user.last_name}} <i data-lucide="pencil"></i>
         </h1>
         <p class="text-base-content/70 mb-4">@{{user.username}}</p>
         <p class="text-base-content/70 mb-4">Senior Software Engineer</p>
@@ -52,13 +52,20 @@
       </div>
 
       <!-- Profile Content -->
-      <div class="md:w-2/3 p-8">
+      <div class="md:w-2/3 py-8 px-4" x-data>
         <div class="flex justify-between items-start">
           <div class="mb-6">
             <h2 class="text-xl font-semibold mb-2">About</h2>
             <p class="text-base-content/70">{{user.bio}}</p>
           </div>
-          <button class="btn btn-primary">Add Post</button>
+          {% if request.user == user%}
+          <button
+            class="btn btn-secondary"
+            onclick="location.href='{% url 'add-post' %}'"
+          >
+            Add Article
+          </button>
+          {% endif %}
         </div>
 
         <div class="mb-6">
@@ -74,19 +81,19 @@
 
         <div>
           <h2 class="text-xl font-semibold mb-4">Recent Articles</h2>
-          <div class="grid grid-cols-3 gap-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {% for post in posts %}
-            <div class="col-span-1">
+            <div class="col-span-1 w-full">
               <a
                 href="{% url 'post' post.id %}"
-                class="block p-4 rounded-lg bg-base-300 hover:bg-base-100 transition-colors"
+                class="block p-4 rounded-lg bg-base-300 hover:bg-base-100 hover:scale-105 transition-transform duration-300"
               >
                 <h3 class="font-semibold mb-2">{{post.title}}</h3>
                 <p class="text-base-content/70">
                   {{post.description|truncatewords:14}}
                 </p>
                 <div class="mt-2 text-sm text-base-content/50">
-                  Published on May 15, 2023 • 12 min read
+                  Published on {{post.created_at|date:"M d, Y"}} • 12 min read
                 </div>
               </a>
             </div>

@@ -32,11 +32,23 @@
         alt="Blog post hero"
         class="w-full h-[400px] object-cover rounded-lg mb-8"
       />
-      <h1 class="text-4xl font-bold mb-4">{{post.title}}</h1>
-      <div class="flex items-center text-gray-400 mb-8">
-        <span>July 25, 2023</span>
-        <span class="mx-2">•</span>
-        <span>11 min read</span>
+      <div class="flex justify-between">
+        <div>
+          <h1 class="text-4xl font-bold mb-4">{{post.title}}</h1>
+          <div class="flex items-center text-gray-400 mb-8">
+            <span>{{post.created_at|date:"F d, Y"}}</span>
+            <span class="mx-2">•</span>
+            <span>11 min read</span>
+          </div>
+        </div>
+        <div x-data>
+          <button
+            class="btn btn-secondary"
+            onclick="location.href='{% url 'edit-post' post.id %}'"
+          >
+            Edit Article
+          </button>
+        </div>
       </div>
       <div class="prose prose-invert max-w-none">
         <p class="text-gray-300 mb-4">{{post.description}}</p>
@@ -55,9 +67,7 @@
       </div>
       <div>
         {% for tag in post.tags.all %}
-        <span class="badge badge-primary"
-          >{{tag.tag}}</span
-        >
+        <span class="badge badge-primary">{{tag.tag}}</span>
         {% endfor %}
       </div>
     </article>
@@ -85,4 +95,4 @@
   </div>
 </div>
 
-{% endblock body %} 
+{% endblock body %}

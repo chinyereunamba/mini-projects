@@ -92,10 +92,17 @@ class Category(models.Model):
 
 
 class BlogPost(models.Model):
+
+    STATUS_CHOICES = [
+        ("draft", "Draft"),
+        ("published", "Published"),
+    ]
+
     user = models.ForeignKey(Account, verbose_name=_("User"), on_delete=models.CASCADE)
     title = models.CharField(_("Post Title"), max_length=255)
-    description = models.TextField(_("Description"))
+    description = models.TextField(_("Excerpt"))
     content = models.TextField(_("Post Content"))
+    featured_image = models.URLField(_("Featured Image"), max_length=200, blank=True)
     tags = models.ManyToManyField(Tag, verbose_name=_("Tags"), related_name="post")
     category = models.ForeignKey(
         Category,
@@ -104,6 +111,7 @@ class BlogPost(models.Model):
         blank=True,
         null=True,
     )
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     created_at = models.DateTimeField(_("Created"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated"), auto_now=True)
 

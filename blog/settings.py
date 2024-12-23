@@ -14,7 +14,7 @@ SECRET_KEY = "django-insecure-7w*k4p!6qy57!4*=*xxb&j72(+_=ew(8$9bdvv0$bxs&-$^#k!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'base.Account'
+AUTH_USER_MODEL = "base.Account"
 
 AUTHENTICATION_BACKENDS = ["base.backends.CaseInsensitiveModelBackend"]
 
@@ -31,11 +31,11 @@ INSTALLED_APPS = [
     "base",
     "django_browser_reload",
     "crispy_forms",
-    "crispy_tailwind"
+    "crispy_tailwind",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = 'tailwind'
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -53,7 +53,7 @@ ROOT_URLCONF = "blog.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

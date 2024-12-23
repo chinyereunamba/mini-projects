@@ -52,8 +52,10 @@ class AccountAdmin(UserAdmin):
 
 
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ["title", "user", "category", "created_at", "updated_at"]
-    search_fields = ["title"]
+    list_display = ["title", "user", "category", "status","created_at", "updated_at"]
+    list_filter = ["status", "category", "created_at"]
+    search_fields = ["title", "content"]
+    prepopulated_fields = {"title": ("title",)}  # Optional for auto-slug generation
 
 
 class TagAdmin(admin.ModelAdmin):
